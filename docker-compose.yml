@@ -3,30 +3,30 @@ services:
     image: ankane/pgvector:latest
     container_name: knowledge_db_container
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: knowledge_manager_db
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: admin_password
+      POSTGRES_DB: knowledge_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  backend:
-    build: ./backend
-    ports: 
-      - "8000:8000"
-    depends_on:
-      - db
+  # backend:
+  #   build: ./backend
+  #   ports: 
+  #     - "8000:8000"
+  #   depends_on:
+  #     - db
 
-    environment:
-      DATABASE_URL: postgresql://myuser:mypassword@db:5432/knowledge_manager_db
+  #   environment:
+  #     DATABASE_URL: postgresql://myuser:mypassword@db:5432/knowledge_manager_db
 
-  frontend: 
-    build: ./frontend
-    ports: 
-      - "3000:3000"
-    depends_on:
-      - backend
+  # frontend: 
+  #   build: ./frontend
+  #   ports: 
+  #     - "3000:3000"
+  #   depends_on:
+  #     - backend
 
 volumes:
   postgres_data:
